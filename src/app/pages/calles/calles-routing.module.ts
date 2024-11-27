@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CallesComponent } from './calles.component';
+import { CallesComponent } from './calles-main/calles.component';
 import { CrearCalleComponent } from './crear-calle/crear-calle.component';
 import { EditarCalleComponent } from './editar-calle/editar-calle.component';
 

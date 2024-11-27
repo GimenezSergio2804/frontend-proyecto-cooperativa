@@ -22,6 +22,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./usuarios/usuarios.module').then((m) => m.UsuariosModule),
       },
+      {
+        path: 'abonados',
+        loadChildren: () =>
+          import('./abonados/abonados.module').then((m) => m.AbonadosModule),
+      },
     ],
   },
 ];
