@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { RouterModule } from '@angular/router';
 import { AbonadosRoutingModule } from './abonados-routing.module';
 import { AbonadosMainComponent } from './abonados-main/abonados-main.component';
 import { EditarAbonadoComponent } from './editar-abonado/editar-abonado.component';
@@ -22,6 +22,7 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     ReactiveFormsModule,
     NgbPaginationModule,
+    RouterModule,
   ],
 })
 export class AbonadosModule {}

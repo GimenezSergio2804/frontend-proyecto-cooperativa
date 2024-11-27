@@ -11,7 +11,7 @@ export class CalleService {
 
   constructor(private _http: HttpClient) {}
 
-  getCalles(page: number, limit: number): Observable<any> {
+  getCalles(page: number = 1, limit: number = 10): Observable<any> {
     const params = new HttpParams()
       .set('page', page.toString())
       .set('limit', limit.toString());

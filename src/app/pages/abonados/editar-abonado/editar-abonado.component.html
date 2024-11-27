@@ -1,140 +1,138 @@
-<div class="container-fluid">
-  <section class="row">
-    <div class="col ml-4 mr-4">
-      <!-- Page title-->
-      <div class="border-bottom pt-5 mb-2">
-        <h1 class="mt-1 mt-md-4 mb-3">Editar Abonado</h1>
-        <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
-          <p class="text-muted">
-            "Este módulo permite editar los datos de un abonado existente."
-          </p>
-          <p class="font-size-sm font-weight-medium pl-md-4">
-            <a class="text-nowrap" [routerLink]="['/dashboard/abonados']"
-              >Volver a la lista de abonados<i
-                class="cxi-angle-left font-size-base align-middle ml-1"
-              ></i
-            ></a>
-          </p>
-        </div>
-      </div>
-
-      <div class="card box-shadow-sm">
-        <div class="card-body">
-          <form (ngSubmit)="onSubmit()" #abonadoForm="ngForm">
-            <div class="row">
-              <!-- Campo de Nombres -->
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="nombres">Nombres</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="nombres"
-                    name="nombres"
-                    [(ngModel)]="abonado.nombres"
-                    required
-                  />
-                </div>
-              </div>
-
-              <!-- Campo de Apellidos -->
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="apellidos">Apellidos</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="apellidos"
-                    name="apellidos"
-                    [(ngModel)]="abonado.apellidos"
-                    required
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <!-- Campo de DNI -->
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="dni">DNI</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="dni"
-                    name="dni"
-                    [(ngModel)]="abonado.dni"
-                    required
-                    pattern="^\d{7,8}$"
-                    title="El DNI debe ser un número de 7 u 8 dígitos"
-                  />
-                </div>
-              </div>
-
-              <!-- Campo de Dirección -->
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="domicilio">Dirección</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="domicilio"
-                    name="domicilio"
-                    [(ngModel)]="abonado.domicilio"
-                    required
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <!-- Campo de Barrio -->
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="barrio">Barrio</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="barrio"
-                    name="barrio"
-                    [(ngModel)]="abonado.barrio"
-                    required
-                  />
-                </div>
-              </div>
-
-              <!-- Campo de Tipo de Documento -->
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="tipoDocumento">Tipo de Documento</label>
-                  <select
-                    class="form-control"
-                    id="tipoDocumento"
-                    name="tipoDocumento"
-                    [(ngModel)]="abonado.tipoDocumento"
-                    required
-                  >
-                    <option value="DNI">DNI</option>
-                    <option value="Pasaporte">Pasaporte</option>
-                    <option value="Cédula">Cédula</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <!-- Botón de guardar -->
-            <div class="form-group text-center mt-4">
-              <button
-                type="submit"
-                class="btn btn-primary"
-                [disabled]="!abonadoForm.form.valid"
-              >
-                {{ abonado ? "Guardar cambios" : "Registrar Abonado" }}
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
+<div class="container">
+  <h2>Editar Abonado</h2>
+  <form (ngSubmit)="guardarCambios()">
+    <!-- Nombres -->
+    <div class="form-group">
+      <label for="nombre">Nombre</label>
+      <input
+        type="text"
+        id="nombre"
+        class="form-control"
+        [(ngModel)]="abonado.nombres"
+        name="nombres"
+        required
+      />
     </div>
-  </section>
+
+    <!-- Apellidos -->
+    <div class="form-group">
+      <label for="apellido">Apellido</label>
+      <input
+        type="text"
+        id="apellido"
+        class="form-control"
+        [(ngModel)]="abonado.apellidos"
+        name="apellidos"
+        required
+      />
+    </div>
+
+    <!-- DNI -->
+    <div class="form-group">
+      <label for="dni">DNI</label>
+      <input
+        type="number"
+        id="dni"
+        class="form-control"
+        [(ngModel)]="abonado.dni"
+        name="dni"
+        required
+      />
+    </div>
+
+    <!-- Mail -->
+    <div class="form-group">
+      <label for="mail">Email</label>
+      <input
+        type="email"
+        id="mail"
+        class="form-control"
+        [(ngModel)]="abonado.mail"
+        name="mail"
+        required
+      />
+    </div>
+
+    <!-- Dirección -->
+    <div class="form-group">
+      <label for="direccion">Dirección</label>
+      <select
+        id="direccion"
+        class="form-control"
+        [(ngModel)]="abonado.direccion"
+        name="direccion"
+        required
+      >
+        <option *ngFor="let calle of calles" [value]="calle._id">
+          {{ calle.nombre }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Entre Calle 1 -->
+    <div class="form-group">
+      <label for="entrecalle1">Entre Calle 1</label>
+      <select
+        id="entrecalle1"
+        class="form-control"
+        [(ngModel)]="abonado.entrecalle1"
+        name="entrecalle1"
+        required
+      >
+        <option *ngFor="let calle of calles" [value]="calle._id">
+          {{ calle.nombre }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Entre Calle 2 -->
+    <div class="form-group">
+      <label for="entrecalle2">Entre Calle 2</label>
+      <select
+        id="entrecalle2"
+        class="form-control"
+        [(ngModel)]="abonado.entrecalle2"
+        name="entrecalle2"
+        required
+      >
+        <option *ngFor="let calle of calles" [value]="calle._id">
+          {{ calle.nombre }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Contacto -->
+    <div class="form-group">
+      <label for="contacto">Contacto</label>
+      <input
+        type="text"
+        id="contacto"
+        class="form-control"
+        [(ngModel)]="abonado.contacto"
+        name="contacto"
+        required
+      />
+    </div>
+
+    <!-- Referencia -->
+    <div class="form-group">
+      <label for="referencia">Referencia</label>
+      <textarea
+        id="referencia"
+        class="form-control"
+        [(ngModel)]="abonado.referencia"
+        name="referencia"
+      ></textarea>
+    </div>
+
+    <!-- Botones -->
+    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    <button
+      type="button"
+      class="btn btn-secondary"
+      (click)="_router.navigate(['dashboard/abonados'])"
+    >
+      Cancelar
+    </button>
+  </form>
 </div>
