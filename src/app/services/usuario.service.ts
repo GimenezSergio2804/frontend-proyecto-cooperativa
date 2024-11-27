@@ -10,12 +10,12 @@ export class UsuarioService {
   public url;
 
   constructor(private _http: HttpClient) {
-    this.url = GLOBAL.url;
+    this.url = GLOBAL.url + 'usuario/';
   }
 
   login_usuario(data: any): Observable<any> {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this._http.post(this.url + 'usuario/' + 'login', data, {
+    return this._http.post(this.url + 'login', data, {
       headers: headers,
     });
   }
@@ -28,14 +28,14 @@ export class UsuarioService {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-    return this._http.get(this.url + 'usuario/' + 'obtener-usuarios', {
+    return this._http.get(this.url + 'obtener-usuarios', {
       headers: headers,
     });
   }
 
   crear_usuario(data: any): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this._http.post(this.url + 'usuario/' + 'crear-usuario', data, {
+    return this._http.post(this.url + 'crear-usuario', data, {
       headers: headers,
     });
   }
@@ -44,7 +44,21 @@ export class UsuarioService {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-    return this._http.get(this.url + 'usuario/' + 'obtener-usuario/' + id, {
+    return this._http.get(this.url + 'obtener-usuario/' + id, {
+      headers: headers,
+    });
+  }
+
+  actualizar_usuario(id: any, data: any): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this._http.put(this.url + 'actualizar-usuario/' + id, data, {
+      headers: headers,
+    });
+  }
+
+  eliminar_usuario(id: any): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this._http.delete(this.url + 'eliminar-usuario/' + id, {
       headers: headers,
     });
   }

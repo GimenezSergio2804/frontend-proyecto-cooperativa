@@ -40,5 +40,26 @@ export class UsuariosMainComponent implements OnInit {
     );
   }
 
-  eliminar() {}
+  eliminar(id: any) {
+    this._usuarioService.eliminar_usuario(id).subscribe(
+      (response) => {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: response.mensaje,
+          showConfirmButton: false,
+          timer: 1500,
+          customClass: {
+            popup: 'animate__animated animate__fadeInDown', // Animación
+          },
+        });
+
+        $('#delete-' + id).modal('hide');
+        $('.modal-backdrop').removeClass('show');
+
+        this.init_data();
+      },
+      (error) => {}
+    );
+  }
 }

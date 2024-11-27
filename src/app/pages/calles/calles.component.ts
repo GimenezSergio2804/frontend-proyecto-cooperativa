@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CalleService } from 'src/app/services/calle.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import Swal from 'sweetalert2';
+
+declare var JQuery: any;
+declare var $: any;
 
 @Component({
   selector: 'app-calles',
@@ -15,7 +20,7 @@ export class CallesComponent implements OnInit {
   totalItems = 0; // Total de elementos de calles
 
   constructor(
-    private calleService: CalleService,
+    private _calleService: CalleService,
     private modalService: NgbModal
   ) {}
 
@@ -25,7 +30,7 @@ export class CallesComponent implements OnInit {
 
   getCalles(): void {
     this.load_data = true; // Mostrar el spinner mientras obtenemos los datos
-    this.calleService.getCalles(this.page, this.pageSize).subscribe(
+    this._calleService.getCalles(this.page, this.pageSize).subscribe(
       (response) => {
         this.calles = response.calles; // Aquí obtenemos las calles
         this.totalItems = response.totalItems; // Total de calles
@@ -44,5 +49,32 @@ export class CallesComponent implements OnInit {
     this.getCalles(); // Obtener las calles de la nueva página
   }
 
-  eliminar() {}
+  eliminar(id: any) {
+    this._calleService.calle_eliminar(id).subscribe(
+      (response) => {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: response.mensaje,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
+        // Cerrar el modal
+        $('#delete-' + id).modal('hide');
+        $('.modal-backdrop').removeClass('show');
+
+        // Recargar la lista de calles
+        this.getCalles();
+      },
+      (error) => {
+        console.error('Error al eliminar la calle:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'No se pudo eliminar la calle. Por favor, inténtelo de nuevo.',
+        });
+      }
+    );
+  }
 }

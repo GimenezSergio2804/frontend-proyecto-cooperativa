@@ -36,5 +36,26 @@ export class EditarUsuariosComponent implements OnInit {
     });
   }
 
-  actualizar(updateForm: any) {}
+  actualizar(updateForm: any) {
+    if (updateForm.valid) {
+      this._usuarioService.actualizar_usuario(this.id, this.usuario).subscribe(
+        (response) => {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: response.message,
+            showConfirmButton: false,
+            timer: 1200,
+          });
+          this._router.navigate(['/dashboard/usuarios']);
+        },
+        (error) => {}
+      );
+    } else {
+      Swal.fire({
+        icon: 'error',
+        text: 'Todos los campos son obligatorios',
+      });
+    }
+  }
 }

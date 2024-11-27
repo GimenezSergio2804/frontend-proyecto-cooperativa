@@ -27,4 +27,29 @@ export class CalleService {
       { headers }
     );
   }
+
+  calle_obtener(id: any): Observable<any> {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    return this._http.get(this.apiUrl + 'obtener-calleId/' + id, {
+      headers: headers,
+    });
+  }
+
+  calle_actualizar(id: any, data: any): Observable<any> {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    return this._http.put(this.apiUrl + 'actualizar-calle/' + id, data, {
+      headers: headers,
+    });
+  }
+
+  calle_eliminar(id: any): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this._http.delete(this.apiUrl + 'eliminar-calle/' + id, {
+      headers: headers,
+    });
+  }
 }
