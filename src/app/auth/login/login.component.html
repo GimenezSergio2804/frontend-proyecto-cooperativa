@@ -1,0 +1,64 @@
+<section class="vh-100 gradient-custom">
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-9 col-lg-6 col-xl-5">
+        <img
+          src="../../../assets/dist/img/logo.png"
+          class="img-fluid ml-md-4"
+          alt="Logo"
+        />
+      </div>
+      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+          <div class="divider d-flex align-items-center my-4">
+            <p class="text-center fw-bold mx-3 mb-0 text-primary">
+              <i class="fas fa-user-secret"></i>
+            </p>
+          </div>
+
+          <!-- Email input -->
+          <div class="form-outline mb-4 mt-md-4">
+            <input
+              type="email"
+              name="email"
+              [(ngModel)]="user.email"
+              class="form-control form-control-lg"
+              placeholder="Ingrese su Email"
+              required
+              autocomplete="off"
+            />
+            <label class="form-label mt-3" for="name">Correo Electrónico</label>
+          </div>
+
+          <!-- Password input -->
+          <div class="form-outline mb-3">
+            <input
+              type="password"
+              name="password"
+              [(ngModel)]="user.password"
+              class="form-control form-control-lg"
+              placeholder="Ingrese su contraseña"
+              required
+            />
+            <label class="form-label mt-3" for="password">Contraseña</label>
+          </div>
+
+          <div class="text-center text-lg-start mt-4 pt-2">
+            <button
+              type="submit"
+              class="btn btn-primary btn-lg btn-block"
+              style="padding-left: 2.5rem; padding-right: 2.5rem"
+            >
+              Ingresar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <footer
+    class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-dark text-white"
+  >
+    <div>Copyright © 2022. Todos los derechos reservados.</div>
+  </footer>
+</section>

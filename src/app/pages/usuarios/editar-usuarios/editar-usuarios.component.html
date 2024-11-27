@@ -1,0 +1,152 @@
+<div class="container-fluid">
+  <section class="row">
+    <div class="col col-xl-9 ml-4 mr-4">
+      <!-- Page title-->
+      <div class="border-bottom mb-5">
+        <h1 class="mt-2 mt-md-4 mb-3 pt-5">Usuarios</h1>
+        <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+          <p class="text-muted pb-1">
+            Este módulo actualiza usuarios del sistema.
+          </p>
+        </div>
+      </div>
+      <form #updateForm="ngForm" (ngSubmit)="actualizar(updateForm)">
+        <div class="card box-shadow-sm">
+          <div class="card-header">
+            <h5 style="margin-bottom: 0px">Actualizar usuario</h5>
+          </div>
+          <div class="card-body" *ngIf="usuario != undefined">
+            <div class="row">
+              <div class="col-md-4 form-group">
+                <label for="validationCustom01" class="form-label"
+                  >Nombres</label
+                >
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Nombres"
+                  name="nombres"
+                  [(ngModel)]="usuario.nombres"
+                  required
+                  autocomplete="off"
+                />
+              </div>
+
+              <div class="col-md-4 form-group">
+                <label for="validationCustom01" class="form-label"
+                  >Apellidos</label
+                >
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Apellidos"
+                  name="apellidos"
+                  [(ngModel)]="usuario.apellidos"
+                  required
+                  autocomplete="off"
+                />
+              </div>
+              <div class="col-md-4 form-group">
+                <label for="validationCustom01" class="form-label"
+                  >Correo electrónico</label
+                >
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Correo Electronico"
+                  name="email"
+                  [(ngModel)]="usuario.email"
+                  required
+                  autocomplete="off"
+                />
+              </div>
+
+              <div class="col-md-4 form-group">
+                <label for="validationCustom01" class="form-label"
+                  >Legajo</label
+                >
+                <input
+                  class="form-control"
+                  type="number"
+                  placeholder="Legajo"
+                  name="legajo"
+                  [(ngModel)]="usuario.legajo"
+                  required
+                  autocomplete="off"
+                />
+              </div>
+              <div class="col-md-4 form-group">
+                <label for="validationCustom01" class="form-label"
+                  >Telefono</label
+                >
+                <input
+                  class="form-control"
+                  type="string"
+                  placeholder="Telefono"
+                  name="contacto"
+                  [(ngModel)]="usuario.contacto"
+                  required
+                  autocomplete="off"
+                />
+              </div>
+
+              <div class="col-md-4">
+                <label for="validationCustom01" class="form-label"
+                  >Sector</label
+                >
+                <select
+                  class="form-control custom-select"
+                  required
+                  name="sector"
+                  [(ngModel)]="usuario.sector"
+                >
+                  <option value="Seleccionar" disabled selected></option>
+                  <option value="admin">Admin</option>
+                  <option value="callcenter">CallCenter</option>
+                  <option value="tecnico">Tecnico</option>
+                  <option value="sistemas">Sistemas</option>
+                  <option value="gerencia">Gerencia</option>
+                </select>
+              </div>
+
+              <div class="col-md-4">
+                <label for="validationCustom01" class="form-label">Rol</label>
+                <select
+                  class="form-control custom-select"
+                  required
+                  name="rol"
+                  [(ngModel)]="usuario.rol"
+                >
+                  <option value="Seleccionar" disabled selected></option>
+                  <option value="usuario">Usuario</option>
+                  <option value="ADMIN">Administrador</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="card-body" *ngIf="usuario == undefined">
+            <h3 class="text-center">No se encontro el registro</h3>
+            <div class="row">
+              <div class="col-3 mx-auto">
+                <img
+                  src="assets/img/advertencia.png"
+                  alt=""
+                  style="width: 100%"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="btn btn-primary mr-3">Actualizar cliente</button>
+            <button
+              class="btn btn-warning"
+              [routerLink]="['/dashboard/usuarios']"
+            >
+              Regresar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>
