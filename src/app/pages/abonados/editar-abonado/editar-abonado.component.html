@@ -1,138 +1,181 @@
-<div class="container">
-  <h2>Editar Abonado</h2>
-  <form (ngSubmit)="guardarCambios()">
-    <!-- Nombres -->
-    <div class="form-group">
-      <label for="nombre">Nombre</label>
-      <input
-        type="text"
-        id="nombre"
-        class="form-control"
-        [(ngModel)]="abonado.nombres"
-        name="nombres"
-        required
-      />
-    </div>
+<div class="container-fluid">
+  <section class="row">
+    <div class="col col-xl-9 ml-4 mr-4">
+      <!-- Page title-->
+      <div class="border-bottom mb-5">
+        <h1 class="mt-2 mt-md-4 mb-3 pt-5">Abonado</h1>
+        <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+          <p class="text-muted pb-1">
+            Este módulo actualiza datos del abonado.
+          </p>
+        </div>
+      </div>
+      <form #updateForm="ngForm" (ngSubmit)="actualizar(updateForm)">
+        <div class="card box-shadow-sm">
+          <div class="card-header">
+            <h5 style="margin-bottom: 0px">Actualizar abonado</h5>
+          </div>
+          <div class="card-body" *ngIf="abonado">
+            <div class="row">
+              <div class="col-md-4 form-group">
+                <label for="validationCustom01" class="form-label"
+                  >Nombres</label
+                >
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Nombres"
+                  name="nombres"
+                  [(ngModel)]="abonado.nombres"
+                  required
+                  autocomplete="off"
+                />
+              </div>
 
-    <!-- Apellidos -->
-    <div class="form-group">
-      <label for="apellido">Apellido</label>
-      <input
-        type="text"
-        id="apellido"
-        class="form-control"
-        [(ngModel)]="abonado.apellidos"
-        name="apellidos"
-        required
-      />
-    </div>
+              <div class="col-md-4 form-group">
+                <label for="validationCustom01" class="form-label"
+                  >Apellidos</label
+                >
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Apellidos"
+                  name="apellidos"
+                  [(ngModel)]="abonado.apellidos"
+                  required
+                  autocomplete="off"
+                />
+              </div>
+              <div class="col-md-4 form-group">
+                <label for="validationCustom01" class="form-label">Dni</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Correo Electronico"
+                  name="dni"
+                  [(ngModel)]="abonado.dni"
+                  required
+                  autocomplete="off"
+                />
+              </div>
 
-    <!-- DNI -->
-    <div class="form-group">
-      <label for="dni">DNI</label>
-      <input
-        type="number"
-        id="dni"
-        class="form-control"
-        [(ngModel)]="abonado.dni"
-        name="dni"
-        required
-      />
-    </div>
+              <div class="col-md-4 form-group">
+                <label for="validationCustom01" class="form-label"
+                  >Correo electronico</label
+                >
+                <input
+                  class="form-control"
+                  type="email"
+                  placeholder="Email"
+                  name="mail"
+                  [(ngModel)]="abonado.mail"
+                  required
+                  autocomplete="off"
+                />
+              </div>
+              <div class="col-md-4 form-group">
+                <label for="validationCustom01" class="form-label"
+                  >Contacto</label
+                >
+                <input
+                  class="form-control"
+                  type="string"
+                  placeholder="contactos"
+                  name="contacto"
+                  [(ngModel)]="abonado.contacto"
+                  required
+                  autocomplete="off"
+                />
+              </div>
 
-    <!-- Mail -->
-    <div class="form-group">
-      <label for="mail">Email</label>
-      <input
-        type="email"
-        id="mail"
-        class="form-control"
-        [(ngModel)]="abonado.mail"
-        name="mail"
-        required
-      />
-    </div>
+              <div class="col-md-4">
+                <label for="validationCustom01" class="form-label"
+                  >Direccion</label
+                >
+                <select
+                  class="form-control custom-select"
+                  required
+                  name="direccion"
+                  [(ngModel)]="abonado.direccion._id"
+                >
+                  <option value="" disabled>Seleccionar</option>
+                  <option *ngFor="let calle of calles" [value]="calle._id">
+                    {{ calle.nombre }}
+                  </option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label for="validationCustom01" class="form-label"
+                  >Entrecalle1</label
+                >
+                <select
+                  class="form-control custom-select"
+                  required
+                  name="entrecalle1"
+                  [(ngModel)]="abonado.entrecalle1._id"
+                >
+                  <option value="" disabled>Seleccionar</option>
+                  <option *ngFor="let calle of calles" [value]="calle._id">
+                    {{ calle.nombre }}
+                  </option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label for="validationCustom01" class="form-label"
+                  >Entrecalle2</label
+                >
+                <select
+                  class="form-control custom-select"
+                  required
+                  name="entrecalle2"
+                  [(ngModel)]="abonado.entrecalle2._id"
+                >
+                  <option value="" disabled>Seleccionar</option>
+                  <option *ngFor="let calle of calles" [value]="calle._id">
+                    {{ calle.nombre }}
+                  </option>
+                </select>
+              </div>
 
-    <!-- Dirección -->
-    <div class="form-group">
-      <label for="direccion">Dirección</label>
-      <select
-        id="direccion"
-        class="form-control"
-        [(ngModel)]="abonado.direccion"
-        name="direccion"
-        required
-      >
-        <option *ngFor="let calle of calles" [value]="calle._id">
-          {{ calle.nombre }}
-        </option>
-      </select>
+              <div class="col-md-4 form-group">
+                <label for="validationCustom01" class="form-label"
+                  >Referencia</label
+                >
+                <input
+                  class="form-control"
+                  type="string"
+                  placeholder="referencias"
+                  name="referencia"
+                  [(ngModel)]="abonado.referencia"
+                  required
+                  autocomplete="off"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="card-body" *ngIf="abonado == undefined">
+            <h3 class="text-center">No se encontro el registro</h3>
+            <div class="row">
+              <div class="col-3 mx-auto">
+                <img
+                  src="assets/img/advertencia.png"
+                  alt=""
+                  style="width: 100%"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="btn btn-primary mr-3">Actualizar abonado</button>
+            <button
+              class="btn btn-warning"
+              [routerLink]="['/dashboard/abonados']"
+            >
+              Regresar
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
-
-    <!-- Entre Calle 1 -->
-    <div class="form-group">
-      <label for="entrecalle1">Entre Calle 1</label>
-      <select
-        id="entrecalle1"
-        class="form-control"
-        [(ngModel)]="abonado.entrecalle1"
-        name="entrecalle1"
-        required
-      >
-        <option *ngFor="let calle of calles" [value]="calle._id">
-          {{ calle.nombre }}
-        </option>
-      </select>
-    </div>
-
-    <!-- Entre Calle 2 -->
-    <div class="form-group">
-      <label for="entrecalle2">Entre Calle 2</label>
-      <select
-        id="entrecalle2"
-        class="form-control"
-        [(ngModel)]="abonado.entrecalle2"
-        name="entrecalle2"
-        required
-      >
-        <option *ngFor="let calle of calles" [value]="calle._id">
-          {{ calle.nombre }}
-        </option>
-      </select>
-    </div>
-
-    <!-- Contacto -->
-    <div class="form-group">
-      <label for="contacto">Contacto</label>
-      <input
-        type="text"
-        id="contacto"
-        class="form-control"
-        [(ngModel)]="abonado.contacto"
-        name="contacto"
-        required
-      />
-    </div>
-
-    <!-- Referencia -->
-    <div class="form-group">
-      <label for="referencia">Referencia</label>
-      <textarea
-        id="referencia"
-        class="form-control"
-        [(ngModel)]="abonado.referencia"
-        name="referencia"
-      ></textarea>
-    </div>
-
-    <!-- Botones -->
-    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-    <button
-      type="button"
-      class="btn btn-secondary"
-      (click)="_router.navigate(['dashboard/abonados'])"
-    >
-      Cancelar
-    </button>
-  </form>
+  </section>
 </div>

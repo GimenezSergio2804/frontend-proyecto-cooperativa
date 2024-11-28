@@ -10,7 +10,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditarUsuariosComponent } from './editar-usuarios/editar-usuarios.component';
 
 @NgModule({
-  declarations: [UsuariosMainComponent, UsuariosRegistroComponent, EditarUsuariosComponent],
+  declarations: [
+    UsuariosMainComponent,
+    UsuariosRegistroComponent,
+    EditarUsuariosComponent,
+  ],
   imports: [
     CommonModule,
     UsuariosRoutingModule,

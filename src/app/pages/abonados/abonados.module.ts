@@ -8,12 +8,14 @@ import { CrearAbonadoComponent } from './crear-abonado/crear-abonado.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { AbonadoDetalleComponent } from './abonados-detalle/abonado-detalle/abonado-detalle.component';
 
 @NgModule({
   declarations: [
     AbonadosMainComponent,
     EditarAbonadoComponent,
     CrearAbonadoComponent,
+    AbonadoDetalleComponent,
   ],
   imports: [
     CommonModule,
