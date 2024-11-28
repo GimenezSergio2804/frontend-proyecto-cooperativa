@@ -27,8 +27,7 @@ export class EditarAbonadoComponent implements OnInit {
     public _router: Router,
     private _route: ActivatedRoute,
     private _calleService: CalleService,
-    private _abonadoService: AbonadosService,
-    private fb: FormBuilder
+    private _abonadoService: AbonadosService
   ) {}
 
   ngOnInit(): void {
