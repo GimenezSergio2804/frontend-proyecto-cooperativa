@@ -1,1 +1,91 @@
-<p>editar-planes works!</p>
+<div class="container-fluid">
+  <section class="row">
+    <div class="col col-xl-9 ml-4 mr-4">
+      <!-- Page title-->
+      <div class="border-bottom mb-5">
+        <h1 class="mt-2 mt-md-4 mb-3 pt-5">Plan</h1>
+        <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+          <p class="text-muted pb-1">
+            Este módulo se editan los planes del sistema.
+          </p>
+        </div>
+      </div>
+      <form #updateForm="ngForm" (ngSubmit)="actualizar(updateForm)">
+        <div class="card box-shadow-sm">
+          <div class="card-header">
+            <h5 style="margin-bottom: 0px">Editar plan</h5>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-4 form-group">
+                <label for="validationCustom01" class="form-label"
+                  >Nombre</label
+                >
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Nombre"
+                  name="nombre"
+                  [(ngModel)]="plan.nombre"
+                  required
+                  autocomplete="off"
+                />
+              </div>
+
+              <div class="col-md-4 form-group">
+                <label for="validationCustom01" class="form-label"
+                  >Velocidad de Bajada</label
+                >
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="velocidadBajada"
+                  name="velocidadBajada"
+                  [(ngModel)]="plan.velocidadBajada"
+                  required
+                  autocomplete="off"
+                />
+              </div>
+              <div class="col-md-4 form-group">
+                <label for="validationCustom01" class="form-label"
+                  >Velocidad de Subida</label
+                >
+                <input
+                  class="form-control"
+                  type="string"
+                  placeholder="velocidad de Subida"
+                  name="velocidadSubida"
+                  [(ngModel)]="plan.velocidadSubida"
+                  required
+                  autocomplete="off"
+                />
+              </div>
+
+              <div class="col-md-4 form-group">
+                <label for="validationCustom01" class="form-label">Valor</label>
+                <input
+                  class="form-control"
+                  type="string"
+                  placeholder="$"
+                  name="valor"
+                  [(ngModel)]="plan.valor"
+                  required
+                  autocomplete="off"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="btn btn-primary mr-3">Actualizar Plan</button>
+            <button
+              class="btn btn-warning"
+              [routerLink]="['/dashboard/planes']"
+            >
+              Regresar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>

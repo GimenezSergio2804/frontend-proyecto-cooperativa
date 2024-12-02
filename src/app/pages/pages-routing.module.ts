@@ -32,6 +32,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./planes/planes.module').then((m) => m.PlanesModule),
       },
+      {
+        path: 'pagos',
+        loadChildren: () =>
+          import('./pagos/pagos.module').then((m) => m.PagosModule),
+      },
     ],
   },
 ];

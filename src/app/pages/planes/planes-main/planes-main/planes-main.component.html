@@ -1,0 +1,96 @@
+<div class="container-fluid">
+  <section class="row">
+    <div class="col ml-4 mr-4">
+      <!-- Page title-->
+      <div class="border-bottom pt-5 mb-2">
+        <h1 class="mt-1 mt-md-4 mb-3">Planes</h1>
+        <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+          <p class="text-muted">
+            Este módulo lista todos los planes del sistema
+          </p>
+          <p class="font-size-sm font-weight-medium pl-md-4">
+            <a
+              class="text-nowrap"
+              [routerLink]="['/dashboard/planes/registro']"
+            >
+              Registrar nuevo<i
+                class="cxi-angle-right font-size-base align-middle ml-1"
+              ></i>
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <div class="card box-shadow-sm">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead class="thead-dark text-center">
+                <tr>
+                  <th>Plan</th>
+                  <th>Velocidad Bajada</th>
+                  <th>Velocidad Subida</th>
+                  <th>Valor</th>
+                  <th>Opciones</th>
+                </tr>
+              </thead>
+              <tbody *ngIf="load_data">
+                <tr>
+                  <td class="text-center" colspan="5">
+                    <div class="spinner-border text-light" role="status">
+                      <span class="visually-hidden"></span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+              <ng-container *ngIf="!load_data">
+                <tbody
+                  *ngFor="
+                    let item of planes
+                      | slice
+                        : (page - 1) * pageSize
+                        : (page - 1) * pageSize + pageSize
+                  "
+                  class="text-center"
+                >
+                  <tr>
+                    <td>{{ item.nombre }}</td>
+                    <td>{{ item.velocidadBajada }}</td>
+                    <td>{{ item.velocidadSubida }}</td>
+                    <td>${{ item.valor }}</td>
+                    <td>
+                      <div class="btn-group">
+                        <button
+                          [routerLink]="['/dashboard/planes', item._id]"
+                          type="button"
+                          class="btn btn-info"
+                        >
+                          <i class="fas fa-edit"></i>
+                        </button>
+                        <button
+                          type="button"
+                          class="ml-3 btn btn-danger"
+                          (click)="eliminar(item._id)"
+                        >
+                          <i class="fas fa-trash-alt"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </ng-container>
+            </table>
+          </div>
+        </div>
+        <div class="card-footer">
+          <ngb-pagination
+            [(page)]="page"
+            [pageSize]="pageSize"
+            [collectionSize]="planes.length"
+          >
+          </ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
