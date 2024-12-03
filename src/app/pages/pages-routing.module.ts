@@ -37,6 +37,13 @@ const routes: Routes = [
         loadChildren: () =>
           import('./pagos/pagos.module').then((m) => m.PagosModule),
       },
+      {
+        path: 'cuadrillas',
+        loadChildren: () =>
+          import('./cuadrillas/cuadrillas.module').then(
+            (m) => m.CuadrillasModule
+          ),
+      },
     ],
   },
 ];

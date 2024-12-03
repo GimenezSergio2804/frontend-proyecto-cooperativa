@@ -62,4 +62,8 @@ export class UsuarioService {
       headers: headers,
     });
   }
+
+  obtenerTecnicos(): Observable<any[]> {
+    return this._http.get<any[]>(`${this.url}tecnicos`);
+  }
 }

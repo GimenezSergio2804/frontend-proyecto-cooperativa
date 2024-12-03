@@ -1,0 +1,60 @@
+<div class="container">
+  <h2 class="text-center mt-4">Crear Cuadrilla</h2>
+
+  <!-- Formulario para crear cuadrilla -->
+  <form (ngSubmit)="crearCuadrilla($event)">
+    <input
+      [(ngModel)]="nombre"
+      name="nombre"
+      type="text"
+      placeholder="Nombre"
+      required
+    />
+
+    <!-- Tipo de cuadrilla -->
+    <select [(ngModel)]="tipo" name="tipo" required>
+      <option *ngFor="let tipo of tiposCuadrilla" [value]="tipo">
+        {{ tipo }}
+      </option>
+    </select>
+
+    <!-- Tecnicos -->
+    <div *ngFor="let tecnico of tecnicosDisponibles">
+      <input
+        type="checkbox"
+        [value]="tecnico._id"
+        (change)="asignarTecnico(tecnico._id)"
+      />
+      {{ tecnico.nombres }} {{ tecnico.apellidos }}
+    </div>
+
+    <button type="submit">Crear Cuadrilla</button>
+  </form>
+
+  <hr />
+
+  <!-- Cuadrillas creadas -->
+  <h3 class="mt-4">Cuadrillas Creadas</h3>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Tipo</th>
+        <th>Técnicos</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cuadrilla of cuadrillas">
+        <td>{{ cuadrilla.nombre }}</td>
+        <td>{{ cuadrilla.tipo }}</td>
+        <td>
+          <ul>
+            <li *ngFor="let tecnico of cuadrilla.tecnicos">
+              {{ tecnico.apellidos }}
+            </li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
