@@ -1,0 +1,51 @@
+/* Contenedor principal de los técnicos */
+.tecnicos-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra el contenido horizontalmente */
+    justify-content: center; /* Centra el contenido verticalmente */
+    margin: 20px; /* Espaciado alrededor del contenedor */
+    padding: 20px; /* Espaciado interno */
+    width: 100%; /* Asegura que ocupe todo el ancho disponible */
+    max-width: 800px; /* Máximo ancho para evitar que se estire demasiado */
+    margin-left: auto;
+    margin-right: auto; /* Centra el contenedor dentro del layout */
+    background-color: #f9f9f9; /* Fondo para mejorar la visibilidad */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para dar un toque moderno */
+  }
+  
+  /* Elemento individual de técnico */
+  .tecnico-item {
+    margin-bottom: 15px; /* Separación entre cada técnico */
+    padding: 15px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    text-align: center;
+  }
+  
+  .tecnico-item:last-child {
+    margin-bottom: 0; /* El último elemento no necesita margen inferior */
+  }
+  
+  /* Título o mensaje */
+  .tecnicos-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .tecnico-item h3 {
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
+  .tecnico-item p {
+    font-size: 1rem;
+    color: #666;
+  }
+  

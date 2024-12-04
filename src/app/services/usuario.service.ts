@@ -63,7 +63,8 @@ export class UsuarioService {
     });
   }
 
-  obtenerTecnicos(): Observable<any[]> {
-    return this._http.get<any[]>(`${this.url}tecnicos`);
+  // 1. Obtener técnicos activos
+  obtenerTecnicosActivos(): Observable<any> {
+    return this._http.get(`${this.url}obtener-tecnicos`);
   }
 }
