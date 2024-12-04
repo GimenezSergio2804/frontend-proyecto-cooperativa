@@ -44,6 +44,11 @@ const routes: Routes = [
             (m) => m.CuadrillasModule
           ),
       },
+      {
+        path: 'nodos',
+        loadChildren: () =>
+          import('./nodos/nodos.module').then((m) => m.NodosModule),
+      },
     ],
   },
 ];

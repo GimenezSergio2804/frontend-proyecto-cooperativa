@@ -42,6 +42,7 @@ export class SidebarService {
       submenu: [
         { titulo: 'Cto', url: 'ctos', icono: 'fas fa-directions' },
         { titulo: 'Fibra', url: 'fibras', icono: 'fas	fa-archive' },
+        { titulo: 'Nodo', url: 'nodos', icono: 'fas fa-directions' },
         // { titulo: 'Onus', url: 'onus', icono: 'fab fa-intercom' },
       ],
     },
