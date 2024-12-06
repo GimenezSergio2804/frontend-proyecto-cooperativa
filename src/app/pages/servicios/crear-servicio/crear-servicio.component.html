@@ -1,0 +1,81 @@
+<div class="container-fluid">
+  <section class="row">
+    <div class="col col-xl-9 ml-4 mr-4">
+      <div class="border-bottom mb-5">
+        <h1 class="mt-2 mt-md-4 mb-3 pt-5">Crear Servicio</h1>
+        <p class="text-muted pb-1">
+          Este módulo permite agregar un nuevo servicio al sistema.
+        </p>
+      </div>
+      <form #crearForm="ngForm" (ngSubmit)="crearServicio(crearForm)">
+        <!-- Mostrar siempre el campo de pago -->
+        <div class="card box-shadow-sm">
+          <div class="card-header">
+            <h5 style="margin-bottom: 0px">Formulario de Servicio</h5>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <!-- Campo de Pago -->
+              <div class="form-group col-md-8">
+                <label for="pago">Pago</label>
+                <select
+                  id="pago"
+                  class="form-control"
+                  [(ngModel)]="pagoSeleccionado"
+                  name="pago"
+                  required
+                  [disabled]="isGratuito"
+                >
+                  <option value="">Seleccione un pago</option>
+                  <option *ngFor="let pago of pagos" [value]="pago._id">
+                    {{ pago.nombre }}
+                  </option>
+                </select>
+              </div>
+
+              <!-- Checkbox "Gratuito" -->
+              <div class="form-group col-md-4">
+                <label for="gratuito">Gratuito</label>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="gratuito"
+                    [(ngModel)]="isGratuito"
+                    (change)="toggleGratuito()"
+                    name="gratuito"
+                  />
+                  <label class="form-check-label" for="gratuito">
+                    Marca si es gratuito
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mostrar el resto del formulario solo si se seleccionó un pago o es gratuito -->
+            <div *ngIf="pagoSeleccionado || isGratuito">
+              <div class="row"></div>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <!-- Botón Crear Servicio: Oculto hasta que se cumpla la condición -->
+            <button
+              class="btn btn-primary mr-3"
+              type="submit"
+              *ngIf="pagoSeleccionado || isGratuito"
+            >
+              Crear Servicio
+            </button>
+            <button
+              class="btn btn-warning"
+              [routerLink]="['/dashboard/servicios']"
+            >
+              Cancelar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>

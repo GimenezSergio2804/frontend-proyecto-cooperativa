@@ -49,6 +49,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./nodos/nodos.module').then((m) => m.NodosModule),
       },
+      {
+        path: 'servicios',
+        loadChildren: () =>
+          import('./servicios/servicios.module').then((m) => m.ServiciosModule),
+      },
     ],
   },
 ];

@@ -43,4 +43,8 @@ export class PagosService {
   obtenerPago(id: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/obtener-pagoId/${id}`);
   }
+
+  obtenerPagosEstadoFalse(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/obtener-pagos-estado-false`);
+  }
 }

@@ -24,6 +24,13 @@ export class SidebarService {
       ],
     },
     {
+      titulo: ' Servicios',
+      icono: 'fas fa-users',
+      submenu: [
+        { titulo: 'Servicios', url: 'servicios', icono: '	fas fa-user-tag' },
+      ],
+    },
+    {
       titulo: ' Personas',
       icono: 'fas fa-users',
       submenu: [
