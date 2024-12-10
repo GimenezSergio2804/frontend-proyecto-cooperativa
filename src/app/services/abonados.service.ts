@@ -11,7 +11,7 @@ export class AbonadosService {
   constructor(private _http: HttpClient) {}
 
   crearAbonado(data: any): Observable<any> {
-    return this._http.post(`${this.apiUrl}`, data);
+    return this._http.post(`${this.apiUrl}crear-abonado`, data);
   }
 
   getAbonados(): Observable<any> {
@@ -23,7 +23,7 @@ export class AbonadosService {
   }
 
   eliminarAbonado(id: string): Observable<void> {
-    return this._http.delete<void>(`${this.apiUrl}/${id}`);
+    return this._http.delete<void>(`${this.apiUrl}eliminar-abonado/${id}`);
   }
 
   obtenerAbonados(): Observable<any> {

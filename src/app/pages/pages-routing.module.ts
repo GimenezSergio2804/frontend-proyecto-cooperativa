@@ -54,6 +54,25 @@ const routes: Routes = [
         loadChildren: () =>
           import('./servicios/servicios.module').then((m) => m.ServiciosModule),
       },
+      {
+        path: 'instalaciones',
+        loadChildren: () =>
+          import('./instalaciones/instalaciones.module').then(
+            (m) => m.InstalacionesModule
+          ),
+      },
+      {
+        path: 'reparaciones',
+        loadChildren: () =>
+          import('./reparaciones/reparaciones.module').then(
+            (m) => m.ReparacionesModule
+          ),
+      },
+      {
+        path: 'inicio',
+        loadChildren: () =>
+          import('./inicio/inicio.module').then((m) => m.InicioModule),
+      },
     ],
   },
 ];

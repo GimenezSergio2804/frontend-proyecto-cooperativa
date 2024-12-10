@@ -40,6 +40,7 @@ export class SidebarService {
     },
     {
       titulo: ' Pagos',
+      // roles: ['tecnico'],
       icono: 'fas fa-users',
       submenu: [{ titulo: 'Pagos', url: 'pagos', icono: '	fas fa-user-tag' }],
     },
@@ -63,4 +64,13 @@ export class SidebarService {
       ],
     },
   ];
+
+  private userSector: string = '';
+
+  setUserSector(sector: string): void {
+    this.userSector = sector;
+  }
+  getMenuItems(): any[] {
+    return this.menu.filter((item) => item.roles.includes(this.userSector));
+  }
 }

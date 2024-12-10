@@ -1,0 +1,178 @@
+<div class="container-fluid">
+  <section class="row">
+    <div class="col col-xl-9 ml-4 mr-4">
+      <!-- Page title-->
+      <div class="border-bottom mb-5">
+        <h1 class="mt-2 mt-md-4 mb-3 pt-5">Reparaciones</h1>
+        <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+          <p class="text-muted pb-1">
+            Este módulo permite actualizar las reparaciones del sistema.
+          </p>
+        </div>
+      </div>
+      <form #updateForm="ngForm" (ngSubmit)="actualizar(updateForm)">
+        <div class="card box-shadow-sm">
+          <div class="card-header">
+            <h5 style="margin-bottom: 0px">Actualizar Reparación</h5>
+          </div>
+          <div class="card-body" *ngIf="reparacion != undefined">
+            <div class="row">
+              <div class="col-md-4 form-group">
+                <label for="abonado">Abonado</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  id="abonado"
+                  name="abonado"
+                  [(ngModel)]="reparacion.servicio.abonado.apellidos"
+                  required
+                  disabled
+                />
+              </div>
+
+              <div class="col-md-4 form-group">
+                <label for="descripcion">Descripcion</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  id="descripcion"
+                  name="descripcion"
+                  [(ngModel)]="reparacion.descripcion"
+                  required
+                />
+              </div>
+
+              <div class="col-md-4 form-group">
+                <label for="direccion">Calle</label>
+                <select
+                  class="form-control"
+                  id="direccion"
+                  name="calle"
+                  [(ngModel)]="reparacion.servicio.direccion.calle._id"
+                  required
+                >
+                  <option *ngFor="let calle of calles" [value]="calle._id">
+                    {{ calle.nombre }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="col-md-4 form-group">
+                <label for="numeracion">Numeración</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  id="numeracion"
+                  name="numeracion"
+                  [(ngModel)]="reparacion.servicio.direccion.numeracion"
+                  required
+                />
+              </div>
+
+              <div class="col-md-4 form-group">
+                <label for="entrecalle1">Entrecalle1</label>
+                <select
+                  class="form-control"
+                  id="entrecalle1"
+                  name="entrecalle1"
+                  [(ngModel)]="reparacion.servicio.direccion.entrecalle1._id"
+                  required
+                >
+                  <option *ngFor="let calle of calles" [value]="calle._id">
+                    {{ calle.nombre }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="col-md-4 form-group">
+                <label for="entrecalle2">Entrecalle2</label>
+                <select
+                  class="form-control"
+                  id="entrecalle2"
+                  name="entrecalle2"
+                  [(ngModel)]="reparacion.servicio.direccion.entrecalle2._id"
+                  required
+                >
+                  <option *ngFor="let calle of calles" [value]="calle._id">
+                    {{ calle.nombre }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="col-md-4 form-group">
+                <label for="estado">Estado</label>
+                <select
+                  class="form-control"
+                  id="estado"
+                  name="estado"
+                  [(ngModel)]="reparacion.estado"
+                  required
+                >
+                  <option value="true">Pendiente</option>
+                  <option value="false">Finalizada</option>
+                </select>
+              </div>
+
+              <div class="col-md-4 form-group">
+                <label for="cuadrilla">Cuadrilla Asignada</label>
+                <select
+                  class="form-control"
+                  id="cuadrilla"
+                  name="cuadrilla"
+                  [(ngModel)]="reparacion.cuadrillaAsignada._id"
+                  required
+                >
+                  <option
+                    *ngFor="let cuadrilla of cuadrillas"
+                    [value]="cuadrilla._id"
+                  >
+                    {{ cuadrilla.nombre }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="col-md-4 form-group">
+                <label for="tipo">Tipo</label>
+                <select
+                  class="form-control"
+                  id="tipo"
+                  name="tipo"
+                  [(ngModel)]="reparacion.servicio.tipo"
+                  required
+                >
+                  <option value="Internet">Internet</option>
+                  <option value="Alarma">Alarma</option>
+                  <option value="Fibra óptica">Fibra óptica</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body" *ngIf="reparacion == undefined">
+            <h3 class="text-center">No se encontró el registro</h3>
+            <div class="row">
+              <div class="col-3 mx-auto">
+                <img
+                  src="assets/img/advertencia.png"
+                  alt=""
+                  style="width: 100%"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="btn btn-primary mr-3" type="submit">
+              Actualizar
+            </button>
+            <button
+              class="btn btn-warning"
+              [routerLink]="['/dashboard/reparaciones']"
+            >
+              Regresar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>

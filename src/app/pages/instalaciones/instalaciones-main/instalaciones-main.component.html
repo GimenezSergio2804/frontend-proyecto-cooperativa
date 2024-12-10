@@ -1,0 +1,154 @@
+<div class="container-fluid">
+  <section class="row">
+    <div class="col ml-4 mr-4">
+      <!-- Page title -->
+      <div class="border-bottom pt-5 mb-2">
+        <h1 class="mt-1 mt-md-4 mb-3">Instalaciones</h1>
+        <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+          <p class="text-muted">
+            Este módulo lista todas las instalaciones del sistema.
+          </p>
+          <p class="font-size-sm font-weight-medium pl-md-4">
+            <a
+              class="text-nowrap"
+              [routerLink]="['/dashboard/instalaciones/registro']"
+            >
+              Registrar nueva
+              <i class="cxi-angle-right font-size-base align-middle ml-1"></i>
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="card box-shadow-sm">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead class="thead-dark text-center">
+                <tr>
+                  <th>Id Gestar</th>
+                  <th>Abonado</th>
+                  <th>Dirección</th>
+                  <th>Entrecalles</th>
+                  <th>Referencias</th>
+                  <th>Tipo</th>
+                  <th>Opciones</th>
+                </tr>
+              </thead>
+              <tbody *ngIf="loading">
+                <tr>
+                  <td class="text-center" colspan="5">
+                    <div class="spinner-border text-light" role="status">
+                      <span class="visually-hidden"></span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+              <ng-container *ngIf="!loading">
+                <tbody
+                  *ngFor="
+                    let instalacion of instalaciones
+                      | slice
+                        : (page - 1) * pageSize
+                        : (page - 1) * pageSize + pageSize
+                  "
+                  class="text-center"
+                >
+                  <tr>
+                    <td>
+                      {{ instalacion.idGestar }}
+                    </td>
+                    <td>
+                      {{ instalacion.abonado.apellidos }}
+                      {{ instalacion.abonado.nombres }}
+                    </td>
+                    <td>
+                      {{ instalacion.direccion.calle.nombre }}
+                      {{ instalacion.direccion.numeracion }}
+                    </td>
+                    <td>
+                      {{ instalacion.direccion.entrecalle1.nombre }} /
+                      {{ instalacion.direccion.entrecalle2.nombre }}
+                    </td>
+                    <td>{{ instalacion.referencias }}</td>
+                    <td>{{ instalacion.tipo }}</td>
+                    <td>
+                      <div class="btn-group">
+                        <button
+                          [routerLink]="[
+                            '/dashboard/instalaciones',
+                            instalacion._id
+                          ]"
+                          type="button"
+                          class="btn btn-info"
+                        >
+                          <i class="fas fa-edit"></i>
+                        </button>
+                        <button
+                          type="button"
+                          class="ml-3 btn btn-danger"
+                          data-toggle="modal"
+                          [attr.data-target]="'#delete-' + instalacion._id"
+                        >
+                          <i class="fas fa-trash-alt"></i>
+                        </button>
+                      </div>
+                      <!-- Modal for delete -->
+                      <div
+                        class="modal"
+                        id="delete-{{ instalacion._id }}"
+                        tabindex="-1"
+                      >
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">Eliminar instalación</h5>
+                              <button
+                                type="button"
+                                class="btn-close"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                              ></button>
+                            </div>
+                            <div class="modal-body">
+                              <p>¿Desea eliminar esta instalación?</p>
+                            </div>
+                            <div class="modal-footer">
+                              <button
+                                type="button"
+                                class="btn btn-info"
+                                data-dismiss="modal"
+                              >
+                                Cancelar
+                              </button>
+                              <button
+                                type="button"
+                                class="btn btn-danger"
+                                (click)="eliminarInstalacion(instalacion._id)"
+                              >
+                                Sí, eliminar
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </ng-container>
+            </table>
+          </div>
+        </div>
+        <div class="card-footer">
+          <ngb-pagination
+            [(page)]="page"
+            [pageSize]="pageSize"
+            [collectionSize]="instalaciones.length"
+          >
+          </ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

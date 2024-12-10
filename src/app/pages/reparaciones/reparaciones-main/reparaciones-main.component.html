@@ -3,15 +3,15 @@
     <div class="col ml-4 mr-4">
       <!-- Page title-->
       <div class="border-bottom pt-5 mb-2">
-        <h1 class="mt-1 mt-md-4 mb-3">Servicios</h1>
+        <h1 class="mt-1 mt-md-4 mb-3">Reparaciones</h1>
         <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
           <p class="text-muted">
-            Este módulo lista todos los servicios del sistema
+            Este módulo lista todas las reparaciones del sistema.
           </p>
           <p class="font-size-sm font-weight-medium pl-md-4">
             <a
               class="text-nowrap"
-              [routerLink]="['/dashboard/servicios/registro']"
+              [routerLink]="['/dashboard/reparaciones/registro']"
               >Registrar nuevo<i
                 class="cxi-angle-right font-size-base align-middle ml-1"
               ></i
@@ -27,16 +27,15 @@
               <thead class="thead-dark text-center">
                 <tr>
                   <th>Id Gestar</th>
-                  <th>Titular</th>
-                  <th>Central</th>
-                  <th>Direccion</th>
-                  <th>Tipo</th>
+                  <th>Descripcion</th>
+                  <th>Fecha Solicitud</th>
+                  <th>Cuadrilla</th>
                   <th>Opciones</th>
                 </tr>
               </thead>
               <tbody *ngIf="load_data">
                 <tr>
-                  <td class="text-center" colspan="3">
+                  <td class="text-center" colspan="4">
                     <div class="spinner-border text-light" role="status">
                       <span class="visually-hidden"></span>
                     </div>
@@ -44,28 +43,26 @@
                 </tr>
               </tbody>
               <ng-container *ngIf="!load_data">
-                <tbody *ngFor="let servicio of servicios" class="text-center">
+                <tbody *ngFor="let item of reparaciones">
                   <tr>
                     <td>
-                      {{ servicio.idGestar }}
+                      {{ item.servicio.idGestar }}
                     </td>
                     <td>
-                      {{ servicio.abonado.nombres }}
-                      {{ servicio.abonado.apellidos }}
+                      {{ item.descripcion }}
                     </td>
-                    <td>{{ servicio.nodo.nombre }}</td>
-                    <td>
-                      {{ servicio.direccion.calle.nombre }}
-                      {{ servicio.direccion.numeracion }} ---
-                      {{ servicio.direccion.entrecalle1.nombre }}/
-                      {{ servicio.direccion.entrecalle2.nombre }}
+                    <td
+                      [ngClass]="{
+                        'bg-danger': estaRetrasada(item.fechaSolicitud)
+                      }"
+                    >
+                      {{ item.fechaSolicitud | date : "short" }}
                     </td>
-
-                    <td>{{ servicio.tipo }} {{ servicio.plan.nombre }}</td>
+                    <td>{{ item.cuadrillaAsignada.nombre }}</td>
                     <td>
                       <div class="btn-group">
                         <button
-                          [routerLink]="['/dashboard/servicios', servicio._id]"
+                          [routerLink]="['/dashboard/reparaciones', item._id]"
                           type="button"
                           class="btn btn-info"
                         >
@@ -74,7 +71,7 @@
                         <button
                           type="button"
                           class="ml-3 btn btn-danger"
-                          (click)="eliminar(servicio._id)"
+                          (click)="eliminar(item._id)"
                         >
                           <i class="fas fa-trash-alt"></i>
                         </button>
@@ -86,7 +83,6 @@
             </table>
           </div>
         </div>
-        <div class="card-footer"></div>
       </div>
     </div>
   </section>

@@ -1,0 +1,117 @@
+<div class="container-fluid">
+  <section class="row">
+    <div class="col col-xl-9 ml-4 mr-4">
+      <!-- Page title-->
+      <div class="border-bottom mb-5">
+        <h1 class="mt-2 mt-md-4 mb-3 pt-5">Instalaciones</h1>
+        <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+          <p class="text-muted pb-1">
+            Este módulo actualiza instalaciones del sistema.
+          </p>
+        </div>
+      </div>
+      <form #updateForm="ngForm" (ngSubmit)="actualizar(updateForm)">
+        <div class="card box-shadow-sm">
+          <div class="card-header">
+            <h5 style="margin-bottom: 0px">Actualizar Instalaciones</h5>
+          </div>
+          <div class="card-body" *ngIf="instalacion != undefined">
+            <div class="row">
+              <div class="col-md-4 form-group">
+                <label for="nombre" class="form-label">Titular</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Ingrese el nombre del cliente"
+                  name="nombre"
+                  [(ngModel)]="instalacion.abonado.apellidos"
+                  required
+                />
+              </div>
+              <div class="col-md-4 form-group">
+                <label for="direccion">Calle</label>
+                <select
+                  class="form-control"
+                  id="direccion"
+                  name="calle"
+                  [(ngModel)]="instalacion.direccion.calle"
+                  required
+                >
+                  <option *ngFor="let calle of calles" [value]="calle._id">
+                    {{ calle.nombre }}
+                  </option>
+                </select>
+              </div>
+              <div class="col-md-4 form-group">
+                <label for="entrecalle1">Entrecalle1</label>
+                <select
+                  class="form-control"
+                  id="entrecalle1"
+                  name="entrecalle1"
+                  [(ngModel)]="instalacion.direccion.entrecalle1"
+                  required
+                >
+                  <option *ngFor="let calle of calles" [value]="calle._id">
+                    {{ calle.nombre }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 form-group">
+                <label for="tecnico" class="form-label">Técnico</label>
+                <select
+                  class="form-control"
+                  name="tecnico"
+                  [(ngModel)]="instalacion.instalador"
+                  required
+                >
+                  <option
+                    *ngFor="let tecnico of cuadrillas"
+                    [value]="tecnico.id"
+                  >
+                    {{ tecnico.nombre }}
+                  </option>
+                </select>
+              </div>
+              <div class="col-md-4 form-group">
+                <label for="estado" class="form-label">Estado</label>
+                <select
+                  class="form-control"
+                  name="estado"
+                  [(ngModel)]="instalacion.estado"
+                  required
+                >
+                  <option value="pendiente">Pendiente</option>
+                  <option value="completado">Completado</option>
+                  <option value="cancelado">Cancelado</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="card-body" *ngIf="instalacion == undefined">
+            <h3 class="text-center">No se encontró el registro</h3>
+            <div class="row">
+              <div class="col-3 mx-auto">
+                <img
+                  src="assets/img/advertencia.png"
+                  alt="Advertencia"
+                  style="width: 100%"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="btn btn-primary mr-3">Actualizar Instalación</button>
+            <button
+              class="btn btn-warning"
+              [routerLink]="['/dashboard/instalaciones']"
+            >
+              Regresar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>

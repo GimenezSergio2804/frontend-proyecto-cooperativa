@@ -1,1 +1,174 @@
-<p>editar-servicio works!</p>
+<div class="container-fluid">
+  <section class="row">
+    <div class="col col-xl-9 ml-4 mr-4">
+      <!-- Page title-->
+      <div class="border-bottom mb-5">
+        <h1 class="mt-2 mt-md-4 mb-3 pt-5">Editar Servicio</h1>
+        <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+          <p class="text-muted pb-1">
+            Este módulo permite editar un servicio existente.
+          </p>
+        </div>
+      </div>
+      <form #updateForm="ngForm" (ngSubmit)="updateServicio(updateForm)">
+        <div class="card box-shadow-sm">
+          <div class="card-header">
+            <h5 style="margin-bottom: 0px">Editar Servicio</h5>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-4 form-group">
+                <label for="idGestar" class="form-label">ID Gestar</label>
+                <input
+                  class="form-control"
+                  type="number"
+                  placeholder="ID Gestar"
+                  name="idGestar"
+                  [(ngModel)]="servicio.idGestar"
+                  autocomplete="off"
+                />
+              </div>
+              <div class="col-md-4 form-group">
+                <label for="tipo" class="form-label">Tipo de Servicio</label>
+                <select
+                  class="form-control"
+                  name="tipo"
+                  [(ngModel)]="servicio.tipo"
+                  required
+                >
+                  <option value="Internet">Internet</option>
+                  <option value="Alarma">Alarma</option>
+                </select>
+              </div>
+
+              <div class="col-md-4 form-group">
+                <label for="contactos" class="form-label">Contactos</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Contactos"
+                  name="contactos"
+                  [(ngModel)]="servicio.abonado.contacto"
+                  autocomplete="off"
+                />
+              </div>
+
+              <div class="col-md-4 form-group">
+                <label for="coordenadas" class="form-label">Coordenadas</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Latitud, Longitud"
+                  name="coordenadas"
+                  [(ngModel)]="servicio.coordenadas"
+                  autocomplete="off"
+                />
+              </div>
+
+              <div class="col-md-4 form-group">
+                <label for="direccion" class="form-label">Dirección</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Dirección"
+                  name="direccion"
+                  [(ngModel)]="servicio.direccion.calle.nombre"
+                  autocomplete="off"
+                />
+              </div>
+              <div class="col-md-4 form-group">
+                <label for="direccion" class="form-label">Dirección</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Dirección"
+                  name="direccion"
+                  [(ngModel)]="servicio.direccion.calle.nombre"
+                  autocomplete="off"
+                />
+              </div>
+              <div class="col-md-4 form-group">
+                <label for="direccion" class="form-label">Numeracion</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Numeracion"
+                  name="numeracion"
+                  [(ngModel)]="servicio.direccion.numeracion"
+                  autocomplete="off"
+                />
+              </div>
+              <div class="col-md-4 form-group">
+                <label for="direccion" class="form-label">Entrecalle1</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Dirección"
+                  name="entrecalle1"
+                  [(ngModel)]="servicio.direccion.entrecalle1.nombre"
+                  autocomplete="off"
+                />
+              </div>
+              <div class="col-md-4 form-group">
+                <label for="direccion" class="form-label">Entrecalle2</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Dirección"
+                  name="entrecalle2"
+                  [(ngModel)]="servicio.direccion.entrecalle2.nombre"
+                  autocomplete="off"
+                />
+              </div>
+
+              <div class="col-md-4 form-group">
+                <label for="abonado" class="form-label">Abonado</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="ID del Abonado"
+                  name="abonado"
+                  [(ngModel)]="servicio.abonado.apellidos"
+                  autocomplete="off"
+                />
+              </div>
+
+              <div class="col-md-4 form-group">
+                <label for="plan" class="form-label">Plan</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="ID del Plan"
+                  name="plan"
+                  [(ngModel)]="servicio.plan.nombre"
+                  autocomplete="off"
+                />
+              </div>
+
+              <div class="col-md-4 form-group">
+                <label for="nodo" class="form-label">Nodo</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="ID del Nodo"
+                  name="nodo"
+                  [(ngModel)]="servicio.nodo.nombre"
+                  autocomplete="off"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="btn btn-primary mr-3">Actualizar Servicio</button>
+            <button
+              class="btn btn-warning"
+              [routerLink]="['/dashboard/servicios']"
+            >
+              Regresar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>

@@ -1,81 +1,365 @@
 <div class="container-fluid">
-  <section class="row">
-    <div class="col col-xl-9 ml-4 mr-4">
-      <div class="border-bottom mb-5">
-        <h1 class="mt-2 mt-md-4 mb-3 pt-5">Crear Servicio</h1>
-        <p class="text-muted pb-1">
-          Este módulo permite agregar un nuevo servicio al sistema.
-        </p>
-      </div>
-      <form #crearForm="ngForm" (ngSubmit)="crearServicio(crearForm)">
-        <!-- Mostrar siempre el campo de pago -->
-        <div class="card box-shadow-sm">
-          <div class="card-header">
-            <h5 style="margin-bottom: 0px">Formulario de Servicio</h5>
-          </div>
-          <div class="card-body">
-            <div class="row">
-              <!-- Campo de Pago -->
-              <div class="form-group col-md-8">
-                <label for="pago">Pago</label>
-                <select
-                  id="pago"
-                  class="form-control"
-                  [(ngModel)]="pagoSeleccionado"
-                  name="pago"
-                  required
-                  [disabled]="isGratuito"
-                >
-                  <option value="">Seleccione un pago</option>
-                  <option *ngFor="let pago of pagos" [value]="pago._id">
-                    {{ pago.nombre }}
-                  </option>
-                </select>
+  <div class="container-fluid">
+    <section class="row">
+      <div class="col col-xl-9 ml-4 mr-4">
+        <div class="border-bottom mb-5">
+          <h1 class="mt-2 mt-md-4 mb-3 pt-5">Crear Servicio</h1>
+          <p class="text-muted pb-1">
+            Este módulo permite agregar un nuevo servicio al sistema.
+          </p>
+        </div>
+        <form #crearForm="ngForm" (ngSubmit)="crearServicio(crearForm)">
+          <!-- Formulario principal -->
+          <div class="card box-shadow-sm">
+            <div class="card-header">
+              <h5 style="margin-bottom: 0px">Formulario de Servicio</h5>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <!-- Campo de Pago -->
+                <div class="form-group col-md-8">
+                  <label for="pago">Pago</label>
+                  <select
+                    id="pago"
+                    class="form-control"
+                    [(ngModel)]="pagoSeleccionado"
+                    name="pago"
+                    required
+                    [disabled]="isGratuito"
+                  >
+                    <option value="">Seleccione un pago</option>
+                    <option *ngFor="let pago of pagos" [value]="pago._id">
+                      {{ pago.nombre }}
+                    </option>
+                  </select>
+                </div>
+
+                <!-- Checkbox "Gratuito" -->
+                <div class="form-group col-md-4">
+                  <label for="gratuito">Gratuito</label>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="gratuito"
+                      [(ngModel)]="isGratuito"
+                      (change)="toggleGratuito()"
+                      name="gratuito"
+                    />
+                    <label class="form-check-label" for="gratuito">
+                      Marca si es gratuito
+                    </label>
+                  </div>
+                </div>
               </div>
 
-              <!-- Checkbox "Gratuito" -->
-              <div class="form-group col-md-4">
-                <label for="gratuito">Gratuito</label>
-                <div class="form-check">
+              <!-- Mostrar más campos si hay pago seleccionado o es gratuito -->
+              <div *ngIf="pagoSeleccionado || isGratuito">
+                <!-- Abonado -->
+                <div class="form-group">
+                  <label for="abonado">Abonado</label>
+                  <select
+                    id="abonado"
+                    class="form-control"
+                    [(ngModel)]="abonadoSeleccionado"
+                    name="abonado"
+                  >
+                    <option value="">Seleccione un abonado</option>
+                    <option
+                      *ngFor="let abonado of abonados"
+                      [value]="abonado._id"
+                    >
+                      {{ abonado.nombres }} {{ abonado.apellidos }}
+                    </option>
+                  </select>
+                  <button
+                    type="button"
+                    class="btn btn-link mt-2"
+                    (click)="abrirModalAbonado()"
+                  >
+                    Crear nuevo abonado
+                  </button>
+                </div>
+
+                <!-- Dirección -->
+                <div class="form-group">
+                  <label for="calle">Calle</label>
+                  <select
+                    id="calle"
+                    class="form-control"
+                    [(ngModel)]="servicio.direccion.calle"
+                    name="calle"
+                    required
+                  >
+                    <option value="">Seleccione una calle</option>
+                    <option *ngFor="let calle of calles" [value]="calle._id">
+                      {{ calle.nombre }}
+                    </option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="numeracion">Numeración</label>
                   <input
-                    class="form-check-input"
-                    type="checkbox"
-                    id="gratuito"
-                    [(ngModel)]="isGratuito"
-                    (change)="toggleGratuito()"
-                    name="gratuito"
+                    type="text"
+                    id="numeracion"
+                    class="form-control"
+                    [(ngModel)]="servicio.direccion.numeracion"
+                    name="numeracion"
+                    required
+                    placeholder="Número de la dirección"
                   />
-                  <label class="form-check-label" for="gratuito">
-                    Marca si es gratuito
-                  </label>
+                </div>
+
+                <div class="form-group">
+                  <label for="entrecalle1">Entre Calle 1</label>
+                  <select
+                    id="entrecalle1"
+                    class="form-control"
+                    [(ngModel)]="servicio.direccion.entrecalle1"
+                    name="entrecalle1"
+                  >
+                    <option value="">Seleccione una entrecalle</option>
+                    <option
+                      *ngFor="let entrecalle of calles"
+                      [value]="entrecalle._id"
+                    >
+                      {{ entrecalle.nombre }}
+                    </option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="entrecalle2">Entre Calle 2</label>
+                  <select
+                    id="entrecalle2"
+                    class="form-control"
+                    [(ngModel)]="servicio.direccion.entrecalle2"
+                    name="entrecalle2"
+                  >
+                    <option value="">Seleccione una entrecalle</option>
+                    <option
+                      *ngFor="let entrecalle of calles"
+                      [value]="entrecalle._id"
+                    >
+                      {{ entrecalle.nombre }}
+                    </option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="numeracion">Referencias</label>
+                  <input
+                    type="text"
+                    id="referencias"
+                    class="form-control"
+                    [(ngModel)]="servicio.referencias"
+                    name="referencias"
+                    required
+                    placeholder="referencias del domicilio"
+                  />
+                </div>
+
+                <!-- Tipo de Servicio -->
+                <div class="form-group">
+                  <label for="tipo">Tipo de Servicio</label>
+                  <select
+                    id="tipo"
+                    class="form-control"
+                    [(ngModel)]="servicio.tipo"
+                    name="tipo"
+                    required
+                  >
+                    <option value="">Seleccione el tipo</option>
+                    <option value="Internet">Internet</option>
+                    <option value="Alarma">Alarma</option>
+                  </select>
+                </div>
+
+                <!-- Plan -->
+                <div class="form-group">
+                  <label for="plan">Plan</label>
+                  <select
+                    id="plan"
+                    class="form-control"
+                    [(ngModel)]="servicio.plan"
+                    name="plan"
+                    required
+                  >
+                    <option value="">Seleccione un plan</option>
+                    <option *ngFor="let plan of planes" [value]="plan._id">
+                      {{ plan.nombre }}
+                    </option>
+                  </select>
+                </div>
+
+                <!-- Central -->
+                <div class="form-group">
+                  <label for="plan">Central</label>
+                  <select
+                    id="plan"
+                    class="form-control"
+                    [(ngModel)]="servicio.nodo"
+                    name="nodo"
+                    required
+                  >
+                    <option value="">Seleccione una central</option>
+                    <option *ngFor="let nodo of nodos" [value]="nodo._id">
+                      {{ nodo.nombre }}
+                    </option>
+                  </select>
                 </div>
               </div>
             </div>
 
-            <!-- Mostrar el resto del formulario solo si se seleccionó un pago o es gratuito -->
-            <div *ngIf="pagoSeleccionado || isGratuito">
-              <div class="row"></div>
+            <!-- Botón de enviar formulario -->
+            <div class="card-footer">
+              <button type="submit" class="btn btn-primary">
+                Crear Servicio
+              </button>
             </div>
           </div>
+        </form>
+      </div>
+    </section>
+  </div>
 
-          <div class="card-footer">
-            <!-- Botón Crear Servicio: Oculto hasta que se cumpla la condición -->
-            <button
-              class="btn btn-primary mr-3"
-              type="submit"
-              *ngIf="pagoSeleccionado || isGratuito"
-            >
-              Crear Servicio
-            </button>
-            <button
-              class="btn btn-warning"
-              [routerLink]="['/dashboard/servicios']"
-            >
-              Cancelar
-            </button>
-          </div>
+  <!-- Modal para crear abonado -->
+  <!-- Modal para crear abonado -->
+  <div
+    id="modalAbonado"
+    #modalAbonado
+    class="modal fade"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="modalAbonadoLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalAbonadoLabel">
+            Crear Nuevo Abonado
+          </h5>
+          <button
+            type="button"
+            class="close"
+            aria-label="Close"
+            (click)="cerrarModalAbonado()"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-      </form>
+        <div class="modal-body">
+          <form #abonadoForm="ngForm">
+            <!-- Nombres -->
+            <div class="form-group">
+              <label for="nombres">Nombres</label>
+              <input
+                type="text"
+                id="nombres"
+                class="form-control"
+                [(ngModel)]="nuevoAbonado.nombres"
+                name="nombres"
+                required
+                #nombres="ngModel"
+              />
+              <div
+                *ngIf="nombres.invalid && nombres.touched"
+                class="text-danger"
+              >
+                El nombre es obligatorio.
+              </div>
+            </div>
+
+            <!-- Apellidos -->
+            <div class="form-group">
+              <label for="apellidos">Apellidos</label>
+              <input
+                type="text"
+                id="apellidos"
+                class="form-control"
+                [(ngModel)]="nuevoAbonado.apellidos"
+                name="apellidos"
+                required
+                #apellidos="ngModel"
+              />
+              <div
+                *ngIf="apellidos.invalid && apellidos.touched"
+                class="text-danger"
+              >
+                Los apellidos son obligatorios.
+              </div>
+            </div>
+
+            <!-- DNI -->
+            <div class="form-group">
+              <label for="dni">DNI</label>
+              <input
+                type="number"
+                id="dni"
+                class="form-control"
+                [(ngModel)]="nuevoAbonado.dni"
+                name="dni"
+                required
+                #dni="ngModel"
+              />
+              <div *ngIf="dni.invalid && dni.touched" class="text-danger">
+                El DNI es obligatorio.
+              </div>
+            </div>
+
+            <!-- Mail -->
+            <div class="form-group">
+              <label for="mail">Mail (opcional)</label>
+              <input
+                type="email"
+                id="mail"
+                class="form-control"
+                [(ngModel)]="nuevoAbonado.mail"
+                name="mail"
+              />
+            </div>
+
+            <!-- Contacto -->
+            <div class="form-group">
+              <label for="contacto">Teléfono de Contacto</label>
+              <input
+                type="text"
+                id="contacto"
+                class="form-control"
+                [(ngModel)]="nuevoAbonado.contacto"
+                name="contacto"
+                required
+                #contacto="ngModel"
+              />
+              <div
+                *ngIf="contacto.invalid && contacto.touched"
+                class="text-danger"
+              >
+                El contacto es obligatorio.
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="cerrarModalAbonado()"
+          >
+            Cerrar
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="crearAbonado()"
+            [disabled]="abonadoForm.invalid"
+          >
+            Crear Abonado
+          </button>
+        </div>
+      </div>
     </div>
-  </section>
+  </div>
 </div>

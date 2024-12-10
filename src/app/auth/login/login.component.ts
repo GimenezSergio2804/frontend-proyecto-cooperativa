@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('perfil', response.usuario.perfil);
 
             // Navegar al dashboard
-            this._router.navigate(['/dashboard']);
+            this._router.navigate(['/dashboard/inicio']);
             Swal.fire({
               position: 'top-end',
               icon: 'success',

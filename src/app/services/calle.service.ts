@@ -52,4 +52,8 @@ export class CalleService {
       headers: headers,
     });
   }
+
+  obtenerCallesSP(): Observable<any> {
+    return this._http.get<any>(this.apiUrl + 'obtenerCallesSP');
+  }
 }

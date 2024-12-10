@@ -7,7 +7,7 @@ import { PagesRoutingModule } from './pages/pages-routing.module';
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   {
-    path: 'dashboard',
+    path: 'dashboard/inicio',
     loadChildren: () =>
       import('./pages/pages.module').then((m) => m.PagesModule),
   },
