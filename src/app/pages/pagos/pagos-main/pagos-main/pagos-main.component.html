@@ -40,15 +40,7 @@
                 </tr>
               </tbody>
               <ng-container *ngIf="!load_data">
-                <tbody
-                  *ngFor="
-                    let item of pagos
-                      | slice
-                        : (page - 1) * pageSize
-                        : (page - 1) * pageSize + pageSize
-                  "
-                  class="text-center"
-                >
+                <tbody *ngFor="let item of pagos" class="text-center">
                   <tr>
                     <td>{{ item.nombre }}</td>
                     <td>{{ item.dni }}</td>
@@ -64,6 +56,14 @@
                           class="btn btn-info"
                         >
                           <i class="fas fa-edit"></i>
+                        </button>
+                        <button
+                          type="button"
+                          class="ml-3 btn btn-primary"
+                          (click)="descargarComprobante(item)"
+                        >
+                          <i class="fas fa-file-download"></i> Descargar
+                          Comprobante
                         </button>
                         <button
                           type="button"
@@ -91,7 +91,8 @@
           <ngb-pagination
             [(page)]="page"
             [pageSize]="pageSize"
-            [collectionSize]="pagos.length"
+            [collectionSize]="totalPagos"
+            (pageChange)="onPageChange($event)"
           >
           </ngb-pagination>
         </div>

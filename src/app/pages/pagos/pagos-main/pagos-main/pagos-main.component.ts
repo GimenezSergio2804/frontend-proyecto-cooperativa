@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PagosService } from 'src/app/services/pagos.service';
 import { DatePipe } from '@angular/common'; // Importa DatePipe
 import Swal from 'sweetalert2';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-pagos-main',
@@ -13,9 +14,14 @@ export class PagosMainComponent implements OnInit {
   load_data: boolean = true;
   pagos: any[] = [];
   page: number = 1; // Página actual
-  pageSize: number = 10; // Tamaño de la página
+  pageSize: number = 8; // Tamaño de la página
+  totalPagos = 0;
 
-  constructor(private pagoService: PagosService, private datePipe: DatePipe) {} // Inyectamos DatePipe
+  constructor(
+    private pagoService: PagosService,
+    private datePipe: DatePipe,
+    private http: HttpClient
+  ) {} // Inyectamos DatePipe
 
   ngOnInit(): void {
     this.obtenerPagos(); // Cargar los pagos al iniciar el componente
@@ -25,24 +31,31 @@ export class PagosMainComponent implements OnInit {
   obtenerPagos(): void {
     this.load_data = true; // Activar el estado de carga
 
-    this.pagoService.obtenerPagos().subscribe({
-      next: (res) => {
-        // Filtrar los pagos donde el estado es false
-        this.pagos = res
-          .filter((pago: any) => pago.estado === false) // Solo pagos con estado false
-          .map((pago: any) => ({
+    this.pagoService
+      .obtenerPagosEstadoFalsePaginado(this.page, this.pageSize)
+      .subscribe({
+        next: (res) => {
+          // Filtrar los pagos donde el estado es false y formatear la fecha
+          this.pagos = res.pagos.map((pago: any) => ({
             ...pago,
-            // Formateamos la fecha en el formato "día/mes/año"
-            formattedDate:
-              this.datePipe.transform(pago.createdAt, 'dd/MM/yyyy HH:mm') || '',
+            formattedDate: new Date(pago.createdAt).toLocaleString('es-AR', {
+              year: 'numeric',
+              month: '2-digit',
+              day: '2-digit',
+              hour: '2-digit',
+              minute: '2-digit',
+              second: '2-digit',
+            }),
           }));
-        this.load_data = false; // Desactivar el estado de carga
-      },
-      error: (err) => {
-        console.error('Error al obtener pagos: ', err);
-        this.load_data = false; // Desactivar el estado de carga incluso si hay error
-      },
-    });
+          console.log('Respuesta del servidor:', res); // Verifica la respuesta
+          this.totalPagos = res.totalPagos; // Asignar el total de pagos
+          this.load_data = false; // Desactivar el estado de carga
+        },
+        error: (err) => {
+          console.error('Error al obtener pagos: ', err);
+          this.load_data = false; // Desactivar el estado de carga incluso si hay error
+        },
+      });
   }
 
   // Función para eliminar un pago
@@ -87,5 +100,24 @@ export class PagosMainComponent implements OnInit {
         });
       }
     });
+  }
+
+  descargarComprobante(pago: any): void {
+    // API para obtener el comprobante como PDF
+    const url = `http://localhost:3000/api/pago/comprobante/${pago._id}`;
+    this.http.get(url, { responseType: 'blob' }).subscribe((blob) => {
+      const a = document.createElement('a');
+      const objectUrl = URL.createObjectURL(blob);
+      a.href = objectUrl;
+      a.download = `comprobante-${pago.nombre}-${pago.dni}.pdf`;
+      a.click();
+      URL.revokeObjectURL(objectUrl);
+    });
+  }
+
+  // Cambiar la página cuando se navega
+  onPageChange(newPage: number): void {
+    this.page = newPage;
+    this.obtenerPagos();
   }
 }
